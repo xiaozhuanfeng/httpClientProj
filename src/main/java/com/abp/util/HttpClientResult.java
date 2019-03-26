@@ -2,12 +2,12 @@ package main.java.com.abp.util;
 
 public class HttpClientResult {
 	/**
-	 * 响应状态码
+	 * 鐘舵�佺爜
 	 */
 	private int		code;
 
 	/**
-	 * 响应数据
+	 * 鍐呭
 	 */
 	private String	content;
 	

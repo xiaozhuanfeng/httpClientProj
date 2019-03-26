@@ -9,7 +9,7 @@ import main.java.com.abp.util.HttpClientUtils;
 import org.junit.Test;
 
 /**
- * ÓÃÓÚ¸ß²¢·¢ĞÔÄÜ²âÊÔÓÃ
+ * å¸¸ç”¨é«˜å¹¶å‘æµ‹è¯•
  * @author xiaoz
  *
  */
@@ -33,7 +33,6 @@ public class HttpClientTest {
 			Map<String, String> params = new HashMap<String,String>();
 			params.put("username", "admin");
 			params.put("password", "123456");
-			//µÇÂ¼
 			result = HttpClientUtils.doPost("http://localhost:8080/login",params);
 			System.out.println(result);
 			

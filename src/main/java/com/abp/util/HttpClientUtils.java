@@ -29,25 +29,25 @@ import org.apache.http.util.EntityUtils;
 public class HttpClientUtils {
 
 	/**
-	 * ±àÂë¸ñÊ½,·¢ËÍ±àÂë¸ñÊ½Í³Ò»ÓÃUTF-8
+	 * ç¼–ç æ ¼å¼,å‘é€ç¼–ç æ ¼å¼ç»Ÿä¸€ç”¨UTF-8
 	 */
 	private static final String	ENCODING		= "UTF-8";
 
 	/**
-	 * ÉèÖÃÁ¬½Ó³¬Ê±Ê±¼ä£¬µ¥Î»ºÁÃë
+	 * è®¾ç½®è¿æ¥è¶…æ—¶æ—¶é—´ï¼Œå•ä½æ¯«ç§’
 	 */
 	private static final int	CONNECT_TIMEOUT	= 6000;
 
 	/**
-	 * ÇëÇó»ñÈ¡Êı¾İµÄ³¬Ê±Ê±¼ä(¼´ÏìÓ¦Ê±¼ä)£¬µ¥Î»ºÁÃë
+	 * è¯·æ±‚è·å–æ•°æ®çš„è¶…æ—¶æ—¶é—´(å³å“åº”æ—¶é—´)ï¼Œå•ä½æ¯«ç§’
 	 */
 	private static final int	SOCKET_TIMEOUT	= 6000;
 
 	/**
-	 * ·¢ËÍgetÇëÇó£»²»´øÇëÇóÍ·ºÍÇëÇó²ÎÊı
+	 * å‘é€getè¯·æ±‚ï¼›ä¸å¸¦è¯·æ±‚å¤´å’Œè¯·æ±‚å‚æ•°
 	 * 
 	 * @param url
-	 *            ÇëÇóµØÖ·
+	 *            è¯·æ±‚åœ°å€
 	 * @return
 	 * @throws Exception
 	 */
@@ -56,12 +56,12 @@ public class HttpClientUtils {
 	}
 
 	/**
-	 * ·¢ËÍgetÇëÇó£»´øÇëÇó²ÎÊı
+	 * å‘é€getè¯·æ±‚ï¼›å¸¦è¯·æ±‚å‚æ•°
 	 * 
 	 * @param url
-	 *            ÇëÇóµØÖ·
+	 *            è¯·æ±‚åœ°å€
 	 * @param params
-	 *            ÇëÇó²ÎÊı¼¯ºÏ
+	 *            è¯·æ±‚å‚æ•°é›†åˆ
 	 * @return
 	 * @throws Exception
 	 */
@@ -70,23 +70,23 @@ public class HttpClientUtils {
 	}
 
 	/**
-	 * ·¢ËÍgetÇëÇó£»´øÇëÇóÍ·ºÍÇëÇó²ÎÊı
+	 * å‘é€getè¯·æ±‚ï¼›å¸¦è¯·æ±‚å¤´å’Œè¯·æ±‚å‚æ•°
 	 * 
 	 * @param url
-	 *            ÇëÇóµØÖ·
+	 *            è¯·æ±‚åœ°å€
 	 * @param headers
-	 *            ÇëÇóÍ·¼¯ºÏ
+	 *            è¯·æ±‚å¤´é›†åˆ
 	 * @param params
-	 *            ÇëÇó²ÎÊı¼¯ºÏ
+	 *            è¯·æ±‚å‚æ•°é›†åˆ
 	 * @return
 	 * @throws Exception
 	 */
 	public static HttpClientResult doGet(String url, Map<String, String> headers, Map<String, String> params)
 			throws Exception {
-		// ´´½¨httpClient¶ÔÏó
+		// åˆ›å»ºhttpClientå¯¹è±¡
 		CloseableHttpClient httpClient = HttpClients.createDefault();
 
-		// ´´½¨·ÃÎÊµÄµØÖ·
+		// åˆ›å»ºè®¿é—®çš„åœ°å€
 		URIBuilder uriBuilder = new URIBuilder(url);
 		if (params != null) {
 			Set<Entry<String, String>> entrySet = params.entrySet();
@@ -95,40 +95,40 @@ public class HttpClientUtils {
 			}
 		}
 
-		// ´´½¨http¶ÔÏó
+		// åˆ›å»ºhttpå¯¹è±¡
 		HttpGet httpGet = new HttpGet(uriBuilder.build());
 		/**
-		 * setConnectTimeout£ºÉèÖÃÁ¬½Ó³¬Ê±Ê±¼ä£¬µ¥Î»ºÁÃë¡£
-		 * setConnectionRequestTimeout£ºÉèÖÃ´Óconnect Manager(Á¬½Ó³Ø)»ñÈ¡Connection
-		 * ³¬Ê±Ê±¼ä£¬µ¥Î»ºÁÃë¡£Õâ¸öÊôĞÔÊÇĞÂ¼ÓµÄÊôĞÔ£¬ÒòÎªÄ¿Ç°°æ±¾ÊÇ¿ÉÒÔ¹²ÏíÁ¬½Ó³ØµÄ¡£
-		 * setSocketTimeout£ºÇëÇó»ñÈ¡Êı¾İµÄ³¬Ê±Ê±¼ä(¼´ÏìÓ¦Ê±¼ä)£¬µ¥Î»ºÁÃë¡£
-		 * Èç¹û·ÃÎÊÒ»¸ö½Ó¿Ú£¬¶àÉÙÊ±¼äÄÚÎŞ·¨·µ»ØÊı¾İ£¬¾ÍÖ±½Ó·ÅÆú´Ë´Îµ÷ÓÃ¡£
+		 * setConnectTimeoutï¼šè®¾ç½®è¿æ¥è¶…æ—¶æ—¶é—´ï¼Œå•ä½æ¯«ç§’ã€‚
+		 * setConnectionRequestTimeoutï¼šè®¾ç½®ä»connect Manager(è¿æ¥æ± )è·å–Connection
+		 * è¶…æ—¶æ—¶é—´ï¼Œå•ä½æ¯«ç§’ã€‚è¿™ä¸ªå±æ€§æ˜¯æ–°åŠ çš„å±æ€§ï¼Œå› ä¸ºç›®å‰ç‰ˆæœ¬æ˜¯å¯ä»¥å…±äº«è¿æ¥æ± çš„ã€‚
+		 * setSocketTimeoutï¼šè¯·æ±‚è·å–æ•°æ®çš„è¶…æ—¶æ—¶é—´(å³å“åº”æ—¶é—´)ï¼Œå•ä½æ¯«ç§’ã€‚
+		 * å¦‚æœè®¿é—®ä¸€ä¸ªæ¥å£ï¼Œå¤šå°‘æ—¶é—´å†…æ— æ³•è¿”å›æ•°æ®ï¼Œå°±ç›´æ¥æ”¾å¼ƒæ­¤æ¬¡è°ƒç”¨ã€‚
 		 */
 		RequestConfig requestConfig = RequestConfig.custom().setConnectTimeout(CONNECT_TIMEOUT)
 				.setSocketTimeout(SOCKET_TIMEOUT).build();
 
 		httpGet.setConfig(requestConfig);
 
-		// ÉèÖÃÇëÇóÍ·
+		// è®¾ç½®è¯·æ±‚å¤´
 		packageHeader(headers, httpGet);
 
-		// ´´½¨httpResponse¶ÔÏó
+		// åˆ›å»ºhttpResponseå¯¹è±¡
 		CloseableHttpResponse httpResponse = null;
 
 		try {
-			// Ö´ĞĞÇëÇó²¢»ñµÃÏìÓ¦½á¹û
+			// æ‰§è¡Œè¯·æ±‚å¹¶è·å¾—å“åº”ç»“æœ
 			return getHttpClientResult(httpResponse, httpClient, httpGet);
 		} finally {
-			// ÊÍ·Å×ÊÔ´
+			// é‡Šæ”¾èµ„æº
 			release(httpResponse, httpClient);
 		}
 	}
 
 	/**
-	 * ·¢ËÍpostÇëÇó£»²»´øÇëÇóÍ·ºÍÇëÇó²ÎÊı
+	 * å‘é€postè¯·æ±‚ï¼›ä¸å¸¦è¯·æ±‚å¤´å’Œè¯·æ±‚å‚æ•°
 	 * 
 	 * @param url
-	 *            ÇëÇóµØÖ·
+	 *            è¯·æ±‚åœ°å€
 	 * @return
 	 * @throws Exception
 	 */
@@ -137,12 +137,12 @@ public class HttpClientUtils {
 	}
 
 	/**
-	 * ·¢ËÍpostÇëÇó£»´øÇëÇó²ÎÊı
+	 * å‘é€postè¯·æ±‚ï¼›å¸¦è¯·æ±‚å‚æ•°
 	 * 
 	 * @param url
-	 *            ÇëÇóµØÖ·
+	 *            è¯·æ±‚åœ°å€
 	 * @param params
-	 *            ²ÎÊı¼¯ºÏ
+	 *            å‚æ•°é›†åˆ
 	 * @return
 	 * @throws Exception
 	 */
@@ -151,36 +151,36 @@ public class HttpClientUtils {
 	}
 
 	/**
-	 * ·¢ËÍpostÇëÇó£»´øÇëÇóÍ·ºÍÇëÇó²ÎÊı
+	 * å‘é€postè¯·æ±‚ï¼›å¸¦è¯·æ±‚å¤´å’Œè¯·æ±‚å‚æ•°
 	 * 
 	 * @param url
-	 *            ÇëÇóµØÖ·
+	 *            è¯·æ±‚åœ°å€
 	 * @param headers
-	 *            ÇëÇóÍ·¼¯ºÏ
+	 *            è¯·æ±‚å¤´é›†åˆ
 	 * @param params
-	 *            ÇëÇó²ÎÊı¼¯ºÏ
+	 *            è¯·æ±‚å‚æ•°é›†åˆ
 	 * @return
 	 * @throws Exception
 	 */
 	public static HttpClientResult doPost(String url, Map<String, String> headers, Map<String, String> params)
 			throws Exception {
-		// ´´½¨httpClient¶ÔÏó
+		// åˆ›å»ºhttpClientå¯¹è±¡
 		CloseableHttpClient httpClient = HttpClients.createDefault();
 
-		// ´´½¨http¶ÔÏó
+		// åˆ›å»ºhttpå¯¹è±¡
 		HttpPost httpPost = new HttpPost(url);
 
 		/**
-		 * setConnectTimeout£ºÉèÖÃÁ¬½Ó³¬Ê±Ê±¼ä£¬µ¥Î»ºÁÃë¡£
-		 * setConnectionRequestTimeout£ºÉèÖÃ´Óconnect Manager(Á¬½Ó³Ø)»ñÈ¡Connection
-		 * ³¬Ê±Ê±¼ä£¬µ¥Î»ºÁÃë¡£Õâ¸öÊôĞÔÊÇĞÂ¼ÓµÄÊôĞÔ£¬ÒòÎªÄ¿Ç°°æ±¾ÊÇ¿ÉÒÔ¹²ÏíÁ¬½Ó³ØµÄ¡£
-		 * setSocketTimeout£ºÇëÇó»ñÈ¡Êı¾İµÄ³¬Ê±Ê±¼ä(¼´ÏìÓ¦Ê±¼ä)£¬µ¥Î»ºÁÃë¡£
-		 * Èç¹û·ÃÎÊÒ»¸ö½Ó¿Ú£¬¶àÉÙÊ±¼äÄÚÎŞ·¨·µ»ØÊı¾İ£¬¾ÍÖ±½Ó·ÅÆú´Ë´Îµ÷ÓÃ¡£
+		 * setConnectTimeoutï¼šè®¾ç½®è¿æ¥è¶…æ—¶æ—¶é—´ï¼Œå•ä½æ¯«ç§’ã€‚
+		 * setConnectionRequestTimeoutï¼šè®¾ç½®ä»connect Manager(è¿æ¥æ± )è·å–Connection
+		 * è¶…æ—¶æ—¶é—´ï¼Œå•ä½æ¯«ç§’ã€‚è¿™ä¸ªå±æ€§æ˜¯æ–°åŠ çš„å±æ€§ï¼Œå› ä¸ºç›®å‰ç‰ˆæœ¬æ˜¯å¯ä»¥å…±äº«è¿æ¥æ± çš„ã€‚
+		 * setSocketTimeoutï¼šè¯·æ±‚è·å–æ•°æ®çš„è¶…æ—¶æ—¶é—´(å³å“åº”æ—¶é—´)ï¼Œå•ä½æ¯«ç§’ã€‚
+		 * å¦‚æœè®¿é—®ä¸€ä¸ªæ¥å£ï¼Œå¤šå°‘æ—¶é—´å†…æ— æ³•è¿”å›æ•°æ®ï¼Œå°±ç›´æ¥æ”¾å¼ƒæ­¤æ¬¡è°ƒç”¨ã€‚
 		 */
 		RequestConfig requestConfig = RequestConfig.custom().setConnectTimeout(CONNECT_TIMEOUT)
 				.setSocketTimeout(SOCKET_TIMEOUT).build();
 		httpPost.setConfig(requestConfig);
-		// ÉèÖÃÇëÇóÍ·
+		// è®¾ç½®è¯·æ±‚å¤´
 		/*
 		 * httpPost.setHeader("Cookie", ""); httpPost.setHeader("Connection",
 		 * "keep-alive"); httpPost.setHeader("Accept", "application/json");
@@ -192,28 +192,28 @@ public class HttpClientUtils {
 		 */
 		packageHeader(headers, httpPost);
 
-		// ·â×°ÇëÇó²ÎÊı
+		// å°è£…è¯·æ±‚å‚æ•°
 		packageParam(params, httpPost);
 
-		// ´´½¨httpResponse¶ÔÏó
+		// åˆ›å»ºhttpResponseå¯¹è±¡
 		CloseableHttpResponse httpResponse = null;
 
 		try {
-			// Ö´ĞĞÇëÇó²¢»ñµÃÏìÓ¦½á¹û
+			// æ‰§è¡Œè¯·æ±‚å¹¶è·å¾—å“åº”ç»“æœ
 			return getHttpClientResult(httpResponse, httpClient, httpPost);
 		} finally {
-			// ÊÍ·Å×ÊÔ´
+			// é‡Šæ”¾èµ„æº
 			release(httpResponse, httpClient);
 		}
 	}
 
 	/**
-	 * ·¢ËÍputÇëÇó£»²»´øÇëÇó²ÎÊı
+	 * å‘é€putè¯·æ±‚ï¼›ä¸å¸¦è¯·æ±‚å‚æ•°
 	 * 
 	 * @param url
-	 *            ÇëÇóµØÖ·
+	 *            è¯·æ±‚åœ°å€
 	 * @param params
-	 *            ²ÎÊı¼¯ºÏ
+	 *            å‚æ•°é›†åˆ
 	 * @return
 	 * @throws Exception
 	 */
@@ -222,12 +222,12 @@ public class HttpClientUtils {
 	}
 
 	/**
-	 * ·¢ËÍputÇëÇó£»´øÇëÇó²ÎÊı
+	 * å‘é€putè¯·æ±‚ï¼›å¸¦è¯·æ±‚å‚æ•°
 	 * 
 	 * @param url
-	 *            ÇëÇóµØÖ·
+	 *            è¯·æ±‚åœ°å€
 	 * @param params
-	 *            ²ÎÊı¼¯ºÏ
+	 *            å‚æ•°é›†åˆ
 	 * @return
 	 * @throws Exception
 	 */
@@ -250,12 +250,12 @@ public class HttpClientUtils {
 	}
 
 	/**
-	 * ·¢ËÍdeleteÇëÇó£»²»´øÇëÇó²ÎÊı
+	 * å‘é€deleteè¯·æ±‚ï¼›ä¸å¸¦è¯·æ±‚å‚æ•°
 	 * 
 	 * @param url
-	 *            ÇëÇóµØÖ·
+	 *            è¯·æ±‚åœ°å€
 	 * @param params
-	 *            ²ÎÊı¼¯ºÏ
+	 *            å‚æ•°é›†åˆ
 	 * @return
 	 * @throws Exception
 	 */
@@ -275,12 +275,12 @@ public class HttpClientUtils {
 	}
 
 	/**
-	 * ·¢ËÍdeleteÇëÇó£»´øÇëÇó²ÎÊı
+	 * å‘é€deleteè¯·æ±‚ï¼›å¸¦è¯·æ±‚å‚æ•°
 	 * 
 	 * @param url
-	 *            ÇëÇóµØÖ·
+	 *            è¯·æ±‚åœ°å€
 	 * @param params
-	 *            ²ÎÊı¼¯ºÏ
+	 *            å‚æ•°é›†åˆ
 	 * @return
 	 * @throws Exception
 	 */
@@ -294,24 +294,24 @@ public class HttpClientUtils {
 	}
 
 	/**
-	 * Description: ·â×°ÇëÇóÍ·
+	 * Description: å°è£…è¯·æ±‚å¤´
 	 * 
 	 * @param params
 	 * @param httpMethod
 	 */
 	public static void packageHeader(Map<String, String> params, HttpRequestBase httpMethod) {
-		// ·â×°ÇëÇóÍ·
+		// å°è£…è¯·æ±‚å¤´
 		if (params != null) {
 			Set<Entry<String, String>> entrySet = params.entrySet();
 			for (Entry<String, String> entry : entrySet) {
-				// ÉèÖÃµ½ÇëÇóÍ·µ½HttpRequestBase¶ÔÏóÖĞ
+				// è®¾ç½®åˆ°è¯·æ±‚å¤´åˆ°HttpRequestBaseå¯¹è±¡ä¸­
 				httpMethod.setHeader(entry.getKey(), entry.getValue());
 			}
 		}
 	}
 
 	/**
-	 * Description: ·â×°ÇëÇó²ÎÊı
+	 * Description: å°è£…è¯·æ±‚å‚æ•°
 	 * 
 	 * @param params
 	 * @param httpMethod
@@ -319,7 +319,7 @@ public class HttpClientUtils {
 	 */
 	public static void packageParam(Map<String, String> params, HttpEntityEnclosingRequestBase httpMethod)
 			throws UnsupportedEncodingException {
-		// ·â×°ÇëÇó²ÎÊı
+		// å°è£…è¯·æ±‚å‚æ•°
 		if (params != null) {
 			List<NameValuePair> nvps = new ArrayList<NameValuePair>();
 			Set<Entry<String, String>> entrySet = params.entrySet();
@@ -327,13 +327,13 @@ public class HttpClientUtils {
 				nvps.add(new BasicNameValuePair(entry.getKey(), entry.getValue()));
 			}
 
-			// ÉèÖÃµ½ÇëÇóµÄhttp¶ÔÏóÖĞ
+			// è®¾ç½®åˆ°è¯·æ±‚çš„httpå¯¹è±¡ä¸­
 			httpMethod.setEntity(new UrlEncodedFormEntity(nvps, ENCODING));
 		}
 	}
 
 	/**
-	 * Description: »ñµÃÏìÓ¦½á¹û
+	 * Description: è·å¾—å“åº”ç»“æœ
 	 * 
 	 * @param httpResponse
 	 * @param httpClient
@@ -343,10 +343,10 @@ public class HttpClientUtils {
 	 */
 	public static HttpClientResult getHttpClientResult(CloseableHttpResponse httpResponse,
 			CloseableHttpClient httpClient, HttpRequestBase httpMethod) throws Exception {
-		// Ö´ĞĞÇëÇó
+		// æ‰§è¡Œè¯·æ±‚
 		httpResponse = httpClient.execute(httpMethod);
 
-		// »ñÈ¡·µ»Ø½á¹û
+		// è·å–è¿”å›ç»“æœ
 		if (httpResponse != null && httpResponse.getStatusLine() != null) {
 			String content = "";
 			if (httpResponse.getEntity() != null) {
@@ -358,14 +358,14 @@ public class HttpClientUtils {
 	}
 
 	/**
-	 * Description: ÊÍ·Å×ÊÔ´
+	 * Description: é‡Šæ”¾èµ„æº
 	 * 
 	 * @param httpResponse
 	 * @param httpClient
 	 * @throws IOException
 	 */
 	public static void release(CloseableHttpResponse httpResponse, CloseableHttpClient httpClient) throws IOException {
-		// ÊÍ·Å×ÊÔ´
+		// é‡Šæ”¾èµ„æº
 		if (httpResponse != null) {
 			httpResponse.close();
 		}
